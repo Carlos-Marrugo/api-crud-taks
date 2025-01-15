@@ -22,22 +22,26 @@ public class TareaController {
     @Autowired
     private TareaRepository tareaRepository;
 
+    //Listar
     @GetMapping
     public List<Tarea> listarTarea() {
         return tareaRepository.findAll();
     }
 
+    //Crear
     @PostMapping
     public Tarea crearTarea(@RequestBody Tarea tarea) {
         return tareaRepository.save(tarea);
     }
 
+    //Obtener
     @GetMapping("/{id}")
     public ResponseEntity<Tarea> obtenerTarea(@PathVariable Long id) {
         return tareaRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
 
     //Actualizar
     @PutMapping("/{id}")
@@ -50,6 +54,7 @@ public class TareaController {
         }).orElse(ResponseEntity.notFound().build());
     }
     
+    //Eliminar
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarTarea(@PathVariable Long id) {
         if (tareaRepository.existsById(id)) {
